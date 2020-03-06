@@ -26,7 +26,13 @@ def destination_control(link_type, gender, language):
         return path
 
 
-def main(wholeLinkInfo, linkUrl):
+def videoConverter(sysCommand, mp4Location, mp3Location):
+    os.system(f"{sysCommand} {mp4Location} {mp3Location}")
+    os.system(f"ffmpeg -i '{mp3Location}' '{mp3Location.replace('mp4', 'mp3')}'")
+    os.remove(mp3Location)
+
+
+def videoDownloader(wholeLinkInfo, linkUrl):
     video_url = linkUrl
     soundDir = pathOutput + destination_control(wholeLinkInfo["Type"], wholeLinkInfo["Gender"],
                                                     wholeLinkInfo["Language"])
@@ -39,14 +45,14 @@ def main(wholeLinkInfo, linkUrl):
         originAppPath = os.getcwd() + '/'
 
     videoName = pytube.extract.video_id(video_url)
-    YouTube(video_url).streams.filter(only_audio=True).first().download(filename=name)
+    YouTube(video_url).streams.first().download(filename=videoName)
     mp4Location = originAppPath + videoName + '.mp4'
-    renametomp3 = soundDir + hashName + '.mp3'
+    mp3Location = soundDir + hashName + '.mp4'
 
     if os.name == 'nt':
-        os.system('ren {0} {1}'. format(mp4Location, renametomp3))
+        videoConverter('ren', mp4Location, mp3Location)
     else:
-        os.system('mv {0} {1}'. format(mp4Location, renametomp3))
+        videoConverter('mv', mp4Location, mp3Location)
 
 
 with open(pathToDoc) as linksFile:
@@ -65,7 +71,7 @@ for dictionaryLink in linksDictionaryList:
     hashName = secrets.token_hex(nbytes=16)
     try:
         if __name__ == '__main__':
-            main(dictionaryLink, dictionaryLink["URL"])
+            videoDownloader(dictionaryLink, dictionaryLink["URL"])
             dictionaryLink["Availability"] = "Valid"
 
     except:
