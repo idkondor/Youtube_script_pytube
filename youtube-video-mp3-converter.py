@@ -34,19 +34,19 @@ def main(wholeLinkInfo, linkUrl):
         os.makedirs(soundDir)
 
     if os.name == 'nt':
-        path = os.getcwd() + '\\'
+        originAppPath = os.getcwd() + '\\'
     else:
-        path = os.getcwd() + '/'
+        originAppPath = os.getcwd() + '/'
 
-    name = pytube.extract.video_id(video_url)
+    videoName = pytube.extract.video_id(video_url)
     YouTube(video_url).streams.filter(only_audio=True).first().download(filename=name)
-    location = path + name + '.mp4'
+    mp4Location = originAppPath + videoName + '.mp4'
     renametomp3 = soundDir + hashName + '.mp3'
 
     if os.name == 'nt':
-        os.system('ren {0} {1}'. format(location, renametomp3))
+        os.system('ren {0} {1}'. format(mp4Location, renametomp3))
     else:
-        os.system('mv {0} {1}'. format(location, renametomp3))
+        os.system('mv {0} {1}'. format(mp4Location, renametomp3))
 
 
 with open(pathToDoc) as linksFile:
