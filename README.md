@@ -4,7 +4,9 @@ convert youtube video to mp3 through pytube module
 Installation:
 1. Install ffmpeg with mp4 codec:
   conda install -n "your-anaconda-env(use no quotes)" -c conda-forge ffmpeg
-2. Edit the file '.../lib/python3.6/site-packages/pytube/compat.py', ADD THESE LINES UNDER "elif PY3":
+2. Install "pytube":
+  pip install pytube
+3. Edit the file '.../lib/python3.6/site-packages/pytube/compat.py', ADD THESE LINES UNDER "elif PY3":
 
   =================================================================
   
