@@ -16,3 +16,5 @@ Installation:
     from urllib.request import urlopen
    
   =================================================================
+4. Run command in the terminal:
+  python youtube-video-mp3-converter.py -i "/home/user/Downloads/SheetIn.csv" -d "/home/user/Downloads/SheetOut.csv" -o "/home/user/Downloads/sheet_converted/youtube_downloaded_mp3/"
